@@ -8,5 +8,5 @@ messages = [{'title': 'Message One',
             ]
 
 @app.route("/")
-def index():
-    return render_template('htmlTemplates/index.html')
+def hello():
+    return render_template('index.html')
