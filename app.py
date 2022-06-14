@@ -9,4 +9,4 @@ messages = [{'title': 'Message One',
 
 @app.route("/")
 def index():
-    return render_template('index.html', messages=messages)
+    return render_template('index.html')
