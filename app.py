@@ -10,3 +10,6 @@ messages = [{'title': 'Message One',
 @app.route("/")
 def hello():
     return render_template('index.html')
+
+if __name__ == '__app__':
+    app.run(debug=True)
