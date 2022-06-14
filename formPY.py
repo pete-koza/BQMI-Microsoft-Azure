@@ -1,7 +1,6 @@
-from flask import Flask, render_template, redirect, url_for
-from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+from dash.dependencies import ALL, Input, Output, State
 
 
