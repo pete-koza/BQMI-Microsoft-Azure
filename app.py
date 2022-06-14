@@ -8,6 +8,5 @@ app.config.from_object(__name__)
 app.config['SECRET_KEY'] = '7k926bh6492moep0192b3t67rc510x'
 
 @app.route("/")
-
-def hello():
-    return formPY.layout
+def main():
+    return html.Div('Hello')
