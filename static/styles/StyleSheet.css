@@ -1,0 +1,25 @@
+.Full-Form {
+    display: grid;
+    grid-template-columns: 60% 30%;
+    padding: 10px;
+}
+
+.Sub-Right-Form {
+    display: grid;
+    padding: 3%;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto auto;
+    grid-gap: 5px;
+}
+
+input {
+    text-align: right;
+}
+
+.Form1 {
+    padding: 10px;
+}
+
+.Fixed-Div {
+    position: fixed;
+}

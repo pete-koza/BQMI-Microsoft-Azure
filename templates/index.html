@@ -2,5 +2,98 @@
 
 {% block content %}
     <title>{% block title %} Travel and Training Approval {% endblock %}</title>
-    
+    <div class="Fixed-Div">
+        <div class="Full-Form">
+            <div class="Form-Left">
+                <div class="formStart">
+                    <h1>Requests</h1>
+                    <input list="Employee" class="form1" placeholder="Name" name="Employee-Name">
+                    <datalist id="Employee">
+                        <option>Jake Parrish</option>
+                        <option>Pete Koza</option>
+                    </datalist>
+                    <input list="Employer" class="form1" placeholder="Employer" name="Employer-Name">
+                    <datalist id="Employer">
+                        <option>Aerodyne</option>
+                        <option>BQMI</option>
+                        <option>Peerless</option>
+                    </datalist>
+                    <p></p>
+                    <input list="Work-Order-Lead" class="form1" placeholder="Work Order Lead" name="Work-Order-Lead">
+                    <datalist id="Work-Order-Lead-List">
+                        <option>Jake Parrish</option>
+                        <option>Pete Koza</option>
+                    </datalist>
+                    <input list="Company-Supervisor" class="form1" placeholder="Company Supervisor" name="Company-Supervisor">
+                    <datalist id="Company-Supervisor-List">
+                        <option>Jake Parrish</option>
+                        <option>Pete Koza</option>
+                    </datalist>
+                    <input list="Work-Order-Manager" class="form1" placeholder="Work Order Manager" name="Work-Order-Manager">
+                    <datalist id="Work-Order-Manager-List">
+                        <option>Jake Parrish</option>
+                        <option>Pete Koza</option>
+                    </datalist>
+                    <p></p>
+                    <input type="text" class="form1" placeholder="Purpose..." name="Purpose-For-Request">
+                </div>
+                <div>
+                    <h1>Training</h1>
+                    <input type="text" class="form1" placeholder="Training Title" name="Training-Title">
+                    <input type="date" class="form1" value="2022-06-01" min="2018-01-01" max="2030-12-31" name="Training-Start-Calendar">
+                    <input type="date" class="form1" value="2022-07-01" min="2018-01-01" max="2030-12-31" name="Training-End-Calendar">
+                    <p></p>
+                    <label for="Certification">Certification</label>
+                    <p></p>
+                    <input type="checkbox" class="form1" name="Certification">
+                </div>
+                <div>
+                    <h1>Travel</h1>
+                    <input type="text" class="form1" placeholder="City" name="Travel-City">
+                    <input type="text" class="form1" placeholder="State" name="Travel-State">
+                    <input type="date" class="form1" value="2022-06-01" min="2018-01-01" max="2030-12-31" name="Travel-Start-Calendar">
+                    <input type="date" class="form1" value="2022-07-01" min="2018-01-01" max="2030-12-31" name="Travel-End-Calendar">
+                </div>
+            </div>
+
+            <div class="Right-Form">
+                <h1>Training Cost</h1>
+                <input type="text" class="form2" placeholder="$0.00" name="Training-Cost">
+                <h2>Itemized Travel Costs</h2>
+                <div class="Sub-Right-Form">
+                    <label for="75-MIE-Rate">75% M&IE Rate</label>
+                    <label for="MIE-Rate">M&IE Rate</label>
+                    <label for="Lodging-Rate">Lodging Rate</label>
+
+                    <input type="text" class="form2" placeholder="$0.00" name="75-MIE-Rate">
+                    <input type="text" class="form2" placeholder="$0.00" name="MIE-Rate">
+                    <input type="text" class="form2" placeholder="$0.00" name="Lodging-Rate">
+
+                    <label for="Est-Per-Diem">Estimated Per Diem</label>
+                    <label for="Est-Lodge-Tax-Fees">Estimated Lodging taxes and fees</label>
+                    <label for="Round-Mileage-Cost">Roundtrip Auto Mileage Cost</label>
+
+                    <input type="text" class="form2" placeholder="$0.00" name="Est-Per-Diem">
+                    <input type="text" class="form2" placeholder="$0.00" name="Est-Lodge-Tax-Fees">
+                    <input type="text" class="form2" placeholder="$0.00" name="Round-Mileage-Cost">
+
+                    <label for="Est-Ground-Trans-Fees">Estimated Ground Transportation Fees</label>
+                    <label for="Est-Airfair-Price">Estimated Airfare Price</label>
+                    <label for="Baggage-Fees">Baggage Fees</label>
+
+                    <input type="text" class="form2" placeholder="$0.00" name="Est-Ground-Trans-Fees">
+                    <input type="text" class="form2" placeholder="$0.00" name="Est-Airfair-Price">
+                    <input type="text" class="form2" placeholder="$0.00" name="Baggage-Fees">
+                
+                    <label for="Est-Car-Rental-Price">Estimated Car Rental Price</label>
+                    <label for="Est-Fuel-Cost">Estimated Fuel Cost</label>
+                    <label for="Other-Cost">Other Cost</label>
+
+                    <input type="text" class="form2" placeholder="$0.00" name="Est-Car-Rental-Price">
+                    <input type="text" class="form2" placeholder="$0.00" name="Est-Fuel-Cost">
+                    <input type="text" class="form2" placeholder="$0.00" name="Other-Cost">
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
