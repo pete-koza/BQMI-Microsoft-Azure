@@ -1,2 +1,1 @@
-# BQMI Microsoft Azure
- 
+# AzureJake
