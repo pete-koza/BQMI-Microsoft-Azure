@@ -115,7 +115,7 @@ layout = html.Div(
                                 dcc.DatePickerSingle(
                                     id="Travel-Start-Date",
                                     placeholder="Start Date"
-                                ),
+                                ), 
                                 dcc.DatePickerSingle(
                                     id="Travel-End-Date",
                                     placeholder="End Date"
@@ -143,7 +143,7 @@ layout = html.Div(
                         html.P("M&IE Rate"),
                         html.P("Lodging Rate"),
                         dcc.Input(
-                            id="75-MIE-Rate",
+                            id="SevenFive-MIE-Rate",
                             type="number",
                             placeholder="$0.00"
                         ),
@@ -177,7 +177,7 @@ layout = html.Div(
                         ),
                         html.P("Estimated Ground \nTransportation Fees"),
                         html.P("Estimated Airfare Price"),
-                        html.P("Baggage-Fees"),
+                        html.P("Baggage Fees"),
                         dcc.Input(
                             id="Est-Ground-Trans-Fees",
                             type="number",
@@ -246,7 +246,7 @@ layout = html.Div(
     Output('Travel-Total-out', 'children'),
     Output('Total-Cost-out', 'children'),
     Input('Training-Cost', 'value'),
-    Input('75-MIE-Rate', 'value'),
+    Input('SevenFive-MIE-Rate', 'value'),
     Input('MIE-Rate', 'value'),
     Input('Lodging-Rate', 'value'),
     Input('Est-Per-Diem', 'value'),
