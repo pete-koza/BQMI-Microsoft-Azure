@@ -99,3 +99,46 @@
     box-sizing: border-box;
     text-align: center;
 }
+
+button {
+    transition-duration: 0.4s;
+}
+
+#submit-btn {
+    border-radius: 50%;
+    background-color: transparent;
+    font-size: 60px;
+    color: #707070;
+    border-color: black;
+}
+
+#submit-btn:hover {
+    background-color: #4CAF50;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    border-color: #707070;
+}
+
+#submit-btn[disabled] {
+    background-color: transparent;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#submit-btn[disabled]:hover {
+    background-color: transparent;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#reset-btn {
+    border-radius: 50%;
+    background-color: transparent;
+    font-size: 60px;
+    color: #707070;
+    border-color: black;
+}
+
+#reset-btn:hover {
+    background-color: #f44336;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
