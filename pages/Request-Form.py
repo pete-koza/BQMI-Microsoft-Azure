@@ -6,30 +6,11 @@ import pyodbc as pyo
 from dash.dependencies import Input, Output
 from datetime import date
 from dash.exceptions import PreventUpdate
+import DB_SQL as db
 
 
 dash.register_page(__name__, path="/")
 
-
-
-serverRQ = "pip-it-sharepoint-prod-eastus.database.windows.net,1433"
-database = "Travel Training"
-username = "pkoza"
-password = "xAgLBmu#7bSeeYt"
-
-cnxn = pyo.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+serverRQ+';DATABASE='+database+';UID='+username+';PWD='+ password)
-cursor = cnxn.cursor()
-
-cursor.execute('SELECT TOP (1000) [Employee],[Email]FROM [dbo].[Employees & Emails]')
-rows = cursor.fetchall()
-employeeList = []
-for row in rows:
-    employeeList.append('' + str(row[0]) + ', ' + str(row[1]))
-    employeeList.sort()
-employerList = ["Aerodyne", "BQMI", "COMSAT", "DB Consulting", "Insight Global", "Peerless", "V2 Technologies"]
-employerList.sort()
-
-cursor.close()
 
 layout = html.Div(
     id="Full-Form",
@@ -43,27 +24,27 @@ layout = html.Div(
                         html.H1("Requests"),
                         dcc.Dropdown(
                             id="Employee-Name",
-                            options= employeeList,
+                            options= db.employeeList,
                             placeholder="Employee Name"
                         ),
                         dcc.Dropdown(
                             id="Employer-Name",
-                            options= employerList,
+                            options= db.employerList,
                             placeholder="Employer Name"
                         ),
                         dcc.Dropdown(
                             id="Work-Order-Lead-List",
-                            options= employeeList,
+                            options= db.employeeList,
                             placeholder="Work Order Lead"
                         ),
                         dcc.Dropdown(
                             id="Company-Supervisor-List",
-                            options= employeeList,
+                            options= db.employeeList,
                             placeholder="Company Supervisor"
                         ),
                         dcc.Dropdown(
                             id="Work-Order-Manager-List",
-                            options= employeeList,
+                            options= db.employeeList,
                             placeholder="Work Order Manager"
                         ),
                         dcc.Input(
@@ -94,6 +75,7 @@ layout = html.Div(
                                 ),
                                 html.Div(
                                     dcc.Checklist(
+                                        id="Certification",
                                         options=["Certification"]
                                     )
                                 )
@@ -224,7 +206,6 @@ layout = html.Div(
                             "grid-gap": "3%"
                         }
                 ),
-
                 html.Div(
                     [
                         html.H1("Grand Total:"),
@@ -235,6 +216,32 @@ layout = html.Div(
                             "grid-template-columns": "75% 20%",
                             "grid-gap": "3%"
                         }
+                ),
+                html.Div(
+                    id="buttonSection",
+                    children=[
+                        html.Div([
+                            html.H4("Reset"),
+                            html.Button('✘', id='reset-btn')
+                        ],
+                        style={
+                            "padding-left": "2%",
+                        }),
+                        html.Div([
+                            html.H4("Submit"),
+                            html.Span(
+                                html.Button('✓', id='submit-btn', type='Submit'),
+                            )
+                        ],
+                        style={
+                            "padding-left": "2%",
+                        })
+                    ],
+                    style={
+                        "padding": "2%",
+                        "display": "grid",
+                        "grid-template-columns": "75% 25%"
+                    }
                 )
             ]
         )
@@ -242,7 +249,33 @@ layout = html.Div(
     ]
 )
 
-@callback(
+
+@callback( # Used for Enabling / Disabling the Submit Button
+    Output('submit-btn', 'disabled'),
+    Input('Employee-Name', 'value'),
+    Input('Employer-Name', 'value'),
+    Input('Work-Order-Lead-List', 'value'),
+    Input('Company-Supervisor-List', 'value'),
+    Input('Work-Order-Manager-List', 'value'),
+    Input('Purpose-For-Request', 'value')
+)
+def unlock_Submit_Button(employeeName, employerName, workOrderLeadList, companySupervisorList, workOrderManagerList, purposeForRequest):
+    if (employeeName == None):
+        return True
+    elif (employerName == None):
+        return True
+    elif (workOrderLeadList == None):
+        return True
+    elif (companySupervisorList == None):
+        return True
+    elif (workOrderManagerList == None):
+        return True
+    elif (purposeForRequest == None):
+        return True
+    else:
+        return False
+
+@callback( # Used for Calculating and Outputting costs
     Output('Travel-Total-out', 'children'),
     Output('Total-Cost-out', 'children'),
     Input('Training-Cost', 'value'),
@@ -257,8 +290,7 @@ layout = html.Div(
     Input('Baggage-Fees', 'value'),
     Input('Est-Car-Rental-Price', 'value'),
     Input('Est-Fuel-Cost', 'value'),
-    Input('Other-Cost', 'value'),
-    prevent_initial_call=True
+    Input('Other-Cost', 'value')
 )
 def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost):
     if(trainingCost == None):
@@ -290,8 +322,6 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodge
 
     travelCosts = float(MIE75 + MIE + lodgingRate + estPerDiem + estLodgeTaxFees + roundMileageCost + estGroundTransFees + estAirfarePrice + baggageFees + estCarRentalPrice + estFuelCost + otherCost)
 
-    trainingCost = trainingCost
-
     totalCosts = round(travelCosts + trainingCost, 2)
     
 
@@ -299,3 +329,84 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodge
         return f"${'{0:.2f}'.format(travelCosts)}", f"${'{0:.2f}'.format(totalCosts)}"
     else:
         raise PreventUpdate
+
+@callback(
+    Output('Full-Form', 'value'),
+    Input('submit-btn', 'n_clicks'),
+    Input('Employee-Name', 'value'),
+    Input('Employer-Name', 'value'),
+    Input('Work-Order-Lead-List', 'value'),
+    Input('Company-Supervisor-List', 'value'),
+    Input('Work-Order-Manager-List', 'value'),
+    Input('Purpose-For-Request', 'value'),
+    Input('Training-Title', 'value'),
+    Input('Training-Start-Date', 'value'),
+    Input('Training-End-Date', 'value'),
+    Input('Certification', 'value'),
+    Input('Travel-City', 'value'),
+    Input('Travel-State', 'value'),
+    Input('Travel-Start-Date', 'value'),
+    Input('Travel-End-Date', 'value'),
+    Input('Training-Cost', 'value'),
+    Input('75-MIE-Rate', 'value'),
+    Input('MIE-Rate', 'value'),
+    Input('Lodging-Rate', 'value'),
+    Input('Est-Per-Diem', 'value'),
+    Input('Est-Lodge-Tax-Fees', 'value'),
+    Input('Round-Mileage-Cost', 'value'),
+    Input('Est-Ground-Trans-Fees', 'value'),
+    Input('Est-Airfare-Price', 'value'),
+    Input('Baggage-Fees', 'value'),
+    Input('Est-Car-Rental-Price', 'value'),
+    Input('Est-Fuel-Cost', 'value'),
+    Input('Other-Cost', 'value'),
+    prevent_initial_call = True
+)
+def submit_Request_onClick(button_click, employeeName, employerName, workOrderLead, companySupervisor, workOrderManager, purposeForRequest, trainingTitle, trainingStartDate, trainingEndDate, certification, travelCity, travelState, travelStartDate, travelEndDate, trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost):
+
+
+    if button_click:
+        # Spacer
+        if(trainingCost == None):
+            trainingCost = 0.00
+        if(MIE75 == None):
+            MIE75 = 0.00
+        if(MIE == None):
+            MIE = 0.00
+        if(lodgingRate == None):
+            lodgingRate = 0.00
+        if(estPerDiem == None):
+            estPerDiem = 0.00
+        if(estLodgeTaxFees == None):
+            estLodgeTaxFees = 0.00
+        if(roundMileageCost == None):
+            roundMileageCost = 0.00
+        if(estGroundTransFees == None):
+            estGroundTransFees = 0.00
+        if(estAirfarePrice == None):
+            estAirfarePrice = 0.00
+        if(baggageFees == None):
+            baggageFees = 0.00
+        if(estCarRentalPrice == None):
+            estCarRentalPrice = 0.00
+        if(estFuelCost == None):
+            estFuelCost = 0.00
+        if(otherCost == None):
+            otherCost = 0.00
+        if(travelCity == None):
+            travelCity = 'N/A'
+        if(travelState == None):
+            travelState = 'N/A'
+
+
+
+
+        # Spacer
+        travelCosts = float(MIE75 + MIE + lodgingRate + estPerDiem + estLodgeTaxFees + roundMileageCost + estGroundTransFees + estAirfarePrice + baggageFees + estCarRentalPrice + estFuelCost + otherCost)
+        # Spacer
+        totalCosts = round(travelCosts + trainingCost, 2)
+        travelLocation = '' + travelCity + ', ' + travelState
+        # Spacer
+        db.submit_New_Request(employeeName=employeeName, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
+        # Spacer
+    raise PreventUpdate
