@@ -2,17 +2,17 @@ from operator import index
 from click import option
 import dash
 from dash import dcc, html, callback
-import pyodbc as pyo
 from dash.dependencies import Input, Output
 from datetime import date
 from dash.exceptions import PreventUpdate
 import DB_SQL as db
+from app import app
+from pages import Form_Submitted as fs
 
 
-dash.register_page(__name__, path="/")
+# dash.register_page(__name__, path="/")
 
-
-layout = html.Div(
+content = html.Div(
     id="Full-Form",
     children=[
         html.Div(
@@ -47,9 +47,8 @@ layout = html.Div(
                             options= db.employeeList,
                             placeholder="Work Order Manager"
                         ),
-                        dcc.Input(
+                        dcc.Textarea(
                             id="Purpose-For-Request",
-                            type="text",
                             placeholder="Purpose For Request..."
                         )
                     ]
@@ -97,7 +96,7 @@ layout = html.Div(
                                 dcc.DatePickerSingle(
                                     id="Travel-Start-Date",
                                     placeholder="Start Date"
-                                ), 
+                                ),
                                 dcc.DatePickerSingle(
                                     id="Travel-End-Date",
                                     placeholder="End Date"
@@ -118,139 +117,138 @@ layout = html.Div(
                     placeholder="$0.00"
                 ),
                 html.H2("Itemized Travel Costs"),
+
                 html.Div(
-                    id="Sub-Right-Form",
+                    id="Right-Form-Block",
                     children=[
-                        html.P("75% M&IE Rate"),
-                        html.P("M&IE Rate"),
-                        html.P("Lodging Rate"),
-                        dcc.Input(
-                            id="SevenFive-MIE-Rate",
-                            type="number",
-                            placeholder="$0.00"
+                        html.Div(
+                            id="Sub-Right-Form",
+                            children=[
+                                html.P("75% M&IE Rate"),
+                                html.P("M&IE Rate"),
+                                html.P("Lodging Rate"),
+                                dcc.Input(
+                                    id="SevenFive-MIE-Rate",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                dcc.Input(
+                                    id="MIE-Rate",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                dcc.Input(
+                                    id="Lodging-Rate",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                html.P("Estimated \nPer Diem"),
+                                html.P("Estimated Lodging \nTaxes and Fees"),
+                                html.P("Roundtrip Auto \nMileage Cost"),
+                                dcc.Input(
+                                    id="Est-Per-Diem",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                dcc.Input(
+                                    id="Est-Lodge-Tax-Fees",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                dcc.Input(
+                                    id="Round-Mileage-Cost",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                html.P("Estimated Ground \nTransportation Fees"),
+                                html.P("Estimated Airfare Price"),
+                                html.P("Baggage-Fees"),
+                                dcc.Input(
+                                    id="Est-Ground-Trans-Fees",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                dcc.Input(
+                                    id="Est-Airfare-Price",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                dcc.Input(
+                                    id="Baggage-Fees",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                html.P("Estimated Car \nRental Price"),
+                                html.P("Estimated Fuel Cost"),
+                                html.P("Other Cost"),
+                                dcc.Input(
+                                    id="Est-Car-Rental-Price",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                dcc.Input(
+                                    id="Est-Fuel-Cost",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                dcc.Input(
+                                    id="Other-Cost",
+                                    type="number",
+                                    placeholder="$0.00"
+                                )
+                            ]
                         ),
-                        dcc.Input(
-                            id="MIE-Rate",
-                            type="number",
-                            placeholder="$0.00"
-                        ),
-                        dcc.Input(
-                            id="Lodging-Rate",
-                            type="number",
-                            placeholder="$0.00"
-                        ),
-                        html.P("Estimated \nPer Diem"),
-                        html.P("Estimated Lodging \nTaxes and Fees"),
-                        html.P("Roundtrip Auto \nMileage Cost"),
-                        dcc.Input(
-                            id="Est-Per-Diem",
-                            type="number",
-                            placeholder="$0.00"
-                        ),
-                        dcc.Input(
-                            id="Est-Lodge-Tax-Fees",
-                            type="number",
-                            placeholder="$0.00"
-                        ),
-                        dcc.Input(
-                            id="Round-Mileage-Cost",
-                            type="number",
-                            placeholder="$0.00"
-                        ),
-                        html.P("Estimated Ground \nTransportation Fees"),
-                        html.P("Estimated Airfare Price"),
-                        html.P("Baggage Fees"),
-                        dcc.Input(
-                            id="Est-Ground-Trans-Fees",
-                            type="number",
-                            placeholder="$0.00"
-                        ),
-                        dcc.Input(
-                            id="Est-Airfare-Price",
-                            type="number",
-                            placeholder="$0.00"
-                        ),
-                        dcc.Input(
-                            id="Baggage-Fees",
-                            type="number",
-                            placeholder="$0.00"
-                        ),
-                        html.P("Estimated Car \nRental Price"),
-                        html.P("Estimated Fuel Cost"),
-                        html.P("Other Cost"),
-                        dcc.Input(
-                            id="Est-Car-Rental-Price",
-                            type="number",
-                            placeholder="$0.00"
-                        ),
-                        dcc.Input(
-                            id="Est-Fuel-Cost",
-                            type="number",
-                            placeholder="$0.00"
-                        ),
-                        dcc.Input(
-                            id="Other-Cost",
-                            type="number",
-                            placeholder="$0.00"
-                        )
+                        html.Br(),
+                        html.Div(
+                            id="Cost-Block",
+                            children=[
+                                html.H2("Total Travel Cost:"),
+                                html.H2(id="Travel-Total-out"),
+                                html.H2("Grand Total:"),
+                                html.H2(id="Total-Cost-out")
+                            ],
+                            style={
+                                    "display": "grid",
+                                    "grid-template-columns": "75% 20%",
+                                    "grid-gap": "3%"
+                                }
+                            ),
                     ]
                 ),
                 html.Div(
-                    [
-                        html.H1("Total Travel Cost:"),
-                        html.H1(id="Travel-Total-out")
-                    ],
-                    style={
-                            "display": "grid",
-                            "grid-template-columns": "75% 20%",
-                            "grid-gap": "3%"
-                        }
-                ),
-                html.Div(
-                    [
-                        html.H1("Grand Total:"),
-                        html.H1(id="Total-Cost-out")
-                    ],
-                    style={
-                            "display": "grid",
-                            "grid-template-columns": "75% 20%",
-                            "grid-gap": "3%"
-                        }
-                ),
-                html.Div(
-                    id="buttonSection",
-                    children=[
-                        html.Div([
-                            html.H4("Reset"),
-                            html.Button('✘', id='reset-btn')
+                        id="buttonSection",
+                        children=[
+                            html.Div([
+                                html.H4("Reset"),
+                                html.Button('✘', id='reset-btn')
+                            ],
+                            style={
+                                "padding-left": "2%",
+                            }),
+                            html.Div([
+                                html.H4("Submit"),
+                                dcc.Link(
+                                    html.Button('✓', id='submit-btn', type='Submit'),
+                                    href="/Form-Submitted"
+                                )
+                            ],
+                            style={
+                                "padding-left": "2%",
+                            })
                         ],
                         style={
-                            "padding-left": "2%",
-                        }),
-                        html.Div([
-                            html.H4("Submit"),
-                            html.Span(
-                                html.Button('✓', id='submit-btn', type='Submit'),
-                            )
-                        ],
-                        style={
-                            "padding-left": "2%",
-                        })
-                    ],
-                    style={
-                        "padding": "2%",
-                        "display": "grid",
-                        "grid-template-columns": "75% 25%"
-                    }
-                )
+                            "padding": "2%",
+                            "display": "grid",
+                            "grid-template-columns": "75% 25%"
+                        }
+                    )
             ]
-        )
-    
+        ) 
     ]
 )
 
 
-@callback( # Used for Enabling / Disabling the Submit Button
+@app.callback( # Used for Enabling / Disabling the Submit Button
     Output('submit-btn', 'disabled'),
     Input('Employee-Name', 'value'),
     Input('Employer-Name', 'value'),
@@ -275,7 +273,7 @@ def unlock_Submit_Button(employeeName, employerName, workOrderLeadList, companyS
     else:
         return False
 
-@callback( # Used for Calculating and Outputting costs
+@app.callback( # Used for Calculating and Outputting costs
     Output('Travel-Total-out', 'children'),
     Output('Total-Cost-out', 'children'),
     Input('Training-Cost', 'value'),
@@ -330,8 +328,8 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodge
     else:
         raise PreventUpdate
 
-@callback(
-    Output('Full-Form', 'value'),
+@app.callback(
+    Output('Full-Form', 'children'), # Output does nothing, reverts to html.button() HREF tag
     Input('submit-btn', 'n_clicks'),
     Input('Employee-Name', 'value'),
     Input('Employer-Name', 'value'),
@@ -359,8 +357,7 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodge
     Input('Baggage-Fees', 'value'),
     Input('Est-Car-Rental-Price', 'value'),
     Input('Est-Fuel-Cost', 'value'),
-    Input('Other-Cost', 'value'),
-    prevent_initial_call = True
+    Input('Other-Cost', 'value')
 )
 def submit_Request_onClick(button_click, employeeName, employerName, workOrderLead, companySupervisor, workOrderManager, purposeForRequest, trainingTitle, trainingStartDate, trainingEndDate, certification, travelCity, travelState, travelStartDate, travelEndDate, trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost):
 
@@ -407,6 +404,18 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
         totalCosts = round(travelCosts + trainingCost, 2)
         travelLocation = '' + travelCity + ', ' + travelState
         # Spacer
-        db.submit_New_Request(employeeName=employeeName, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
+        # db.submit_New_Request(employeeName=employeeName, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
+        fs.displayFormRequest(employeeName=employeeName, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
         # Spacer
+    raise PreventUpdate
+
+
+@app.callback(
+    Output('url', 'href'),
+    Input('reset-btn', 'n_clicks')
+)
+def reset_page(reset_button_click):
+    if reset_button_click:
+        print("Reset Button Clicked")
+        return "/"
     raise PreventUpdate
