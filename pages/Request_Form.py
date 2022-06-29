@@ -393,10 +393,15 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
             travelCity = 'N/A'
         if(travelState == None):
             travelState = 'N/A'
+        if(certification[0] == None):
+            certification = 'No'
+        elif(certification[0] == 'Certification'):
+            certification = 'Yes'
+        if(trainingTitle == None):
+            trainingTitle = 'N/A'
 
 
-        print(travelStartDate)
-
+        
         # Spacer
         travelCosts = float(MIE75 + MIE + lodgingRate + estPerDiem + estLodgeTaxFees + roundMileageCost + estGroundTransFees + estAirfarePrice + baggageFees + estCarRentalPrice + estFuelCost + otherCost)
         # Spacer
@@ -439,8 +444,8 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
 
 
         # Spacer
-        # db.submit_New_Request(employeeName=employeeName, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
         fs.populateForm(employeeName=employeeName, employeeEmail=employeeEmail, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
+        db.submit_New_Request(employeeName=employeeName, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
         # Spacer
     else:
         raise PreventUpdate

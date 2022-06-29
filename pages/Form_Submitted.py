@@ -129,7 +129,7 @@ def get_workOrderLead(workOrderLead): #Passes workOrderLead
     global workOrderLeadForm
     workOrderLeadForm = workOrderLead
 
-def get_companySupervisor(companySupervisor):
+def get_companySupervisor(companySupervisor): #Passes companySupervisor
     global companySupervisorForm
     companySupervisorForm = companySupervisor
 

@@ -1,40 +1,35 @@
-import sqlite3
+import sqlite3 as sql
+import os
+from os.path import join, dirname, abspath
+
+conn = sql.connect('Database/TravelTraining.db')
+cursor = conn.cursor()
 
 
+cursor.execute("Select Employee, Email From Employees")
 
-# serverRQ = "pip-it-sharepoint-prod-eastus.database.windows.net,1433"
-# database = "Travel Training"
-# username = "pkoza"
-# password = "xAgLBmu#7bSeeYt"
+rows = cursor.fetchall()
 
-# cnxn = pyo.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+serverRQ+';DATABASE='+database+';UID='+username+';PWD='+ password)
-# cursor = cnxn.cursor()
-
-# cursor.execute('SELECT TOP (1000) [Employee],[Email]FROM [dbo].[Employees & Emails]')
-# rows = cursor.fetchall()
-employeeList = ["Test Value"]
-# for row in rows:
-#     employeeList.append('' + str(row[0]) + ', ' + str(row[1]))
-#     employeeList.sort()
+employeeList = []
+for row in rows:
+    employeeList.append('' + str(row[0]) + ', ' + str(row[1]))
+    employeeList.sort()
 employerList = ["Aerodyne", "BQMI", "COMSAT", "DB Consulting", "Insight Global", "Peerless", "V2 Technologies"]
-# employerList.sort()
+employerList.sort()
 
+cursor.close()
+conn.close()
 
-
-
-# def submit_New_Request(employeeName, employerName, trainingTitle, trainingPurpose, certification, travelStartDate, travelEndDate, destination, trainingStartDate, trainingEndDate, totalCost, workOrderLead, companySupervisor, workOrderManager):
-#     cnxn = pyo.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+serverRQ+';DATABASE='+database+';UID='+username+';PWD='+ password)
-#     cursorNew = cnxn.cursor()
-#     cursorNew.execute("INSERT INTO [dbo].[In Progress Requests] ([Approval Status], [Employee], [Employer], [Training Title], [Training Purpose], [Certification], [Travel Start Date], [Travel End Date], [Destination], [Training Start Date], [Training End Date], [Total Cost], [Work Order Lead], [Company Supervisor], [Work Order Manager]) VALUES ('In Progress', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", employeeName, employerName, trainingTitle, trainingPurpose, certification, travelStartDate, travelEndDate, destination, trainingStartDate, trainingEndDate, totalCost, workOrderLead, companySupervisor, workOrderManager)
-#     cursorNew.commit()
+def submit_New_Request(employeeName, employerName, trainingTitle, trainingPurpose, certification, travelStartDate, travelEndDate, destination, trainingStartDate, trainingEndDate, totalCost, workOrderLead, companySupervisor, workOrderManager):
+    conn = sql.connect('Database/TravelTraining.db')
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO 'In Progress Requests' ('Approval Status', 'Employee', 'Employer', 'Training Title', 'Request Purpose', 'Certification', 'Travel Start Date', 'Travel End Date', 'Destination', 'Training Start Date', 'Training End Date', 'Total Cost', 'Work Order Lead', 'Company Supervisor', 'Work Order Manager') VALUES ('In Progress', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (str(employeeName), str(employerName), str(trainingTitle), str(trainingPurpose), str(certification), str(travelStartDate), str(travelEndDate), str(destination), str(trainingStartDate), str(trainingEndDate), str(totalCost), str(workOrderLead), str(companySupervisor), str(workOrderManager)))
+    conn.commit()
 
     
     
     
-#     print(employeeName, employerName, trainingTitle, trainingPurpose, certification, travelStartDate, travelEndDate, destination, trainingStartDate, trainingEndDate, totalCost, workOrderLead, companySupervisor, workOrderManager)
+    print(employeeName, employerName, trainingTitle, trainingPurpose, certification, travelStartDate, travelEndDate, destination, trainingStartDate, trainingEndDate, totalCost, workOrderLead, companySupervisor, workOrderManager)
 
-#     cursorNew.close()
-#     cnxn.close()
-
-# cursor.close()
-# cnxn.close()
+    cursor.close()
+    conn.close()
