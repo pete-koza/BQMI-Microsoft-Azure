@@ -228,9 +228,10 @@ content = html.Div(
                             html.Div([
                                 html.H4("Submit"),
                                 dcc.Link(
-                                    html.Button('✓', id='submit-btn', type='Submit'),
-                                    href="/Form-Submitted"
+                                    html.Button('✓', id='submit-btn', type='Submit'), href='/Form-Submitted', refresh=True
                                 )
+                                
+                                
                             ],
                             style={
                                 "padding-left": "2%",
@@ -329,7 +330,7 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodge
         raise PreventUpdate
 
 @app.callback(
-    Output('Full-Form', 'children'), # Output does nothing, reverts to html.button() HREF tag
+    Output('Full-Form', 'value'), # Output does nothing, reverts to html.button() HREF tag
     Input('submit-btn', 'n_clicks'),
     Input('Employee-Name', 'value'),
     Input('Employer-Name', 'value'),
@@ -360,8 +361,6 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodge
     Input('Other-Cost', 'value')
 )
 def submit_Request_onClick(button_click, employeeName, employerName, workOrderLead, companySupervisor, workOrderManager, purposeForRequest, trainingTitle, trainingStartDate, trainingEndDate, certification, travelCity, travelState, travelStartDate, travelEndDate, trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost):
-
-
     if button_click:
         # Spacer
         if(trainingCost == None):
@@ -408,25 +407,43 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
             employeeName = employeeName.split(", ")[0]
         else:
             employeeEmail = "N/A"
+            employeeName = employeeName
 
-        date_object = date.fromisoformat(travelStartDate)
-        travelStartDate = date_object.strftime('%B %d, %Y')
 
-        date_object = date.fromisoformat(travelEndDate)
-        travelEndDate = date_object.strftime('%B %d, %Y')
 
-        date_object = date.fromisoformat(trainingStartDate)
-        trainingStartDate = date_object.strftime('%B %d, %Y')
 
-        date_object = date.fromisoformat(trainingEndDate)
-        trainingEndDate = date_object.strftime('%B %d, %Y')
+        if(travelStartDate != None):
+            date_object = date.fromisoformat(travelStartDate)
+            travelStartDate = date_object.strftime('%B %d, %Y')
+        else:
+            travelStartDate = "N/A"
+
+        if(travelEndDate != None):
+            date_object = date.fromisoformat(travelEndDate)
+            travelEndDate = date_object.strftime('%B %d, %Y')
+        else:
+            travelEndDate = "N/A"
+
+        if(trainingStartDate != None):
+            date_object = date.fromisoformat(trainingStartDate)
+            trainingStartDate = date_object.strftime('%B %d, %Y')
+        else:
+            trainingStartDate = "N/A"
+
+        if(trainingEndDate != None):
+            date_object = date.fromisoformat(trainingEndDate)
+            trainingEndDate = date_object.strftime('%B %d, %Y')
+        else:
+            trainingEndDate = "N/A"
+
 
 
         # Spacer
         # db.submit_New_Request(employeeName=employeeName, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
         fs.populateForm(employeeName=employeeName, employeeEmail=employeeEmail, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
         # Spacer
-    raise PreventUpdate
+    else:
+        raise PreventUpdate
 
 
 @app.callback(

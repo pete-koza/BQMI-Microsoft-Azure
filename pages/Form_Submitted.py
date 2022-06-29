@@ -139,8 +139,8 @@ def get_workOrderManager(workOrderManager): #Passes workOrderManager
 
 
 def populateForm(employeeName, employeeEmail, employerName, trainingTitle, trainingPurpose, certification, travelStartDate, travelEndDate, destination, trainingStartDate, trainingEndDate, totalCost, workOrderLead, companySupervisor, workOrderManager):
-    get_employeeEmail(employeeEmail)
     get_employeeName(employeeName)
+    get_employeeEmail(employeeEmail)
     get_employerName(employerName)
     get_trainingTitle(trainingTitle)
     get_trainingPurpose(trainingPurpose)

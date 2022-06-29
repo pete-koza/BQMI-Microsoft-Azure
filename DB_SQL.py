@@ -1,4 +1,6 @@
-# import pyodbc as pyo
+import sqlite3
+
+
 
 # serverRQ = "pip-it-sharepoint-prod-eastus.database.windows.net,1433"
 # database = "Travel Training"
