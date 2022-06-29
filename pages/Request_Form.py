@@ -393,7 +393,7 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
             travelCity = 'N/A'
         if(travelState == None):
             travelState = 'N/A'
-        if(certification[0] == None):
+        if not certification:
             certification = 'No'
         elif(certification[0] == 'Certification'):
             certification = 'Yes'
@@ -460,3 +460,5 @@ def reset_page(reset_button_click):
         print("Reset Button Clicked")
         return "/"
     raise PreventUpdate
+
+

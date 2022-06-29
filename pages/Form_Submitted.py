@@ -6,8 +6,7 @@ from datetime import date
 from dash.exceptions import PreventUpdate
 import DB_SQL as db
 
-
-# dash.register_page(__name__, path="/Form-Submitted")
+rf_passedData = []
 
 layout = html.Div(
     id="Full-Form-FS",
@@ -22,8 +21,31 @@ html.Div(
     id="DummyDiv"
 )
 
+
+def populateForm(employeeName, employeeEmail, employerName, trainingTitle, trainingPurpose, certification, travelStartDate, travelEndDate, destination, trainingStartDate, trainingEndDate, totalCost, workOrderLead, companySupervisor, workOrderManager):
+    global rf_passedData
+    if(rf_passedData):
+        rf_passedData.clear()
+    else:
+        rf_passedData.append(employeeName)
+        rf_passedData.append(employeeEmail)
+        rf_passedData.append(employerName)
+        rf_passedData.append(trainingTitle)
+        rf_passedData.append(trainingPurpose)
+        rf_passedData.append(certification)
+        rf_passedData.append(travelStartDate)
+        rf_passedData.append(travelEndDate)
+        rf_passedData.append(destination)
+        rf_passedData.append(trainingStartDate)
+        rf_passedData.append(trainingEndDate)
+        rf_passedData.append(totalCost)
+        rf_passedData.append(workOrderLead)
+        rf_passedData.append(companySupervisor)
+        rf_passedData.append(workOrderManager)
+
+
 @app.callback(Output('form-Callback-Info', 'children'),
-            Input('url', 'pathname'),
+            Input('url', 'pathname')
             )
 def formConfirm(pathname):
     if pathname == '/Form-Submitted':
@@ -55,102 +77,24 @@ def formConfirm(pathname):
                     html.Tbody(
                         html.Tr(
                             [
-                                html.Th(employeeNameForm),
-                                html.Th(employeeEmailForm),
-                                html.Th(employerNameForm),
-                                html.Th(trainingTitleForm),
-                                html.Th(trainingPurposeForm),
-                                html.Th(certificationForm),
-                                html.Th(travelStartDateForm),
-                                html.Th(travelEndDateForm),
-                                html.Th(destinationForm),
-                                html.Th(trainingStartDateForm),
-                                html.Th(trainingEndDateForm),
-                                html.Th("$" + str(totalCostForm)),
-                                html.Th(workOrderLeadForm),
-                                html.Th(companySupervisorForm),
-                                html.Th(workOrderManagerForm)
+                                html.Th(rf_passedData[0]),
+                                html.Th(rf_passedData[1]),
+                                html.Th(rf_passedData[2]),
+                                html.Th(rf_passedData[3]),
+                                html.Th(rf_passedData[4]),
+                                html.Th(rf_passedData[5]),
+                                html.Th(rf_passedData[6]),
+                                html.Th(rf_passedData[7]),
+                                html.Th(rf_passedData[8]),
+                                html.Th(rf_passedData[9]),
+                                html.Th(rf_passedData[10]),
+                                html.Th("$" + str(rf_passedData[11])),
+                                html.Th(rf_passedData[12]),
+                                html.Th(rf_passedData[13]),
+                                html.Th(rf_passedData[14])
                             ]
                         )
                     )
                 ]
             )
         )
-
-def get_employeeName(employeeName): #Passes EmployeeName
-    global employeeNameForm
-    employeeNameForm = employeeName
-
-def get_employeeEmail(employeeEmail): #Passes EmployeeName
-    global employeeEmailForm
-    employeeEmailForm = employeeEmail
-
-def get_employerName(employerName): #Passes EmployerName
-    global employerNameForm
-    employerNameForm = employerName
-
-def get_trainingTitle(trainingTitle): #Passes trainingTitle
-    global trainingTitleForm
-    trainingTitleForm = trainingTitle
-
-def get_trainingPurpose(trainingPurpose): #Passes trainingPurpose
-    global trainingPurposeForm
-    trainingPurposeForm = trainingPurpose
-
-def get_certification(certification): #Passes certification
-    global certificationForm
-    certificationForm = certification
-
-def get_travelStartDate(travelStartDate): #Passes travelStartDate
-    global travelStartDateForm
-    travelStartDateForm = travelStartDate
-
-def get_travelEndDate(travelEndDate): #Passes travelEndDate
-    global travelEndDateForm
-    travelEndDateForm = travelEndDate
-
-def get_destination(destination): #Passes destination
-    global destinationForm
-    destinationForm = destination
-
-def get_trainingStartDate(trainingStartDate): #Passes trainingStartDate
-    global trainingStartDateForm
-    trainingStartDateForm = trainingStartDate
-
-def get_trainingEndDate(trainingEndDate): #Passes trainingEndDate
-    global trainingEndDateForm
-    trainingEndDateForm = trainingEndDate
-
-def get_totalCost(totalCost): #Passes totalCost
-    global totalCostForm
-    totalCostForm = totalCost
-
-def get_workOrderLead(workOrderLead): #Passes workOrderLead
-    global workOrderLeadForm
-    workOrderLeadForm = workOrderLead
-
-def get_companySupervisor(companySupervisor): #Passes companySupervisor
-    global companySupervisorForm
-    companySupervisorForm = companySupervisor
-
-def get_workOrderManager(workOrderManager): #Passes workOrderManager
-    global workOrderManagerForm
-    workOrderManagerForm = workOrderManager
-
-
-def populateForm(employeeName, employeeEmail, employerName, trainingTitle, trainingPurpose, certification, travelStartDate, travelEndDate, destination, trainingStartDate, trainingEndDate, totalCost, workOrderLead, companySupervisor, workOrderManager):
-    get_employeeName(employeeName)
-    get_employeeEmail(employeeEmail)
-    get_employerName(employerName)
-    get_trainingTitle(trainingTitle)
-    get_trainingPurpose(trainingPurpose)
-    get_certification(certification)
-    get_travelStartDate(travelStartDate)
-    get_travelEndDate(travelEndDate)
-    get_destination(destination)
-    get_trainingStartDate(trainingStartDate)
-    get_trainingEndDate(trainingEndDate)
-    get_totalCost(totalCost)
-    get_workOrderLead(workOrderLead)
-    get_companySupervisor(companySupervisor)
-    get_workOrderManager(workOrderManager)
