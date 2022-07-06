@@ -19,7 +19,7 @@ html {
     #Form-Left-Top { /*Changes Requests*/
         color: white;
     }
-        #Employee-Name, #Employer-Name, #Work-Order-Lead-List, #Company-Supervisor-List, #Work-Order-Manager-List {
+        #Employee-Name, #Employer-Name, #Work-Order-Lead-List, #Company-Supervisor-List, #Work-Order-Manager-List, #Project-Code {
             font-size: 10pt;
             color: black;
             margin: 8px 0;

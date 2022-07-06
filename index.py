@@ -1,6 +1,6 @@
 from dash import html, dcc
 from dash.dependencies import Input, Output
-from pages import Request_Form as rf, Form_Submitted as fs
+from pages import Request_Form as rf, Form_Submitted as fs, admin as admin
 
 from app import app
 
@@ -17,8 +17,14 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/':
         return rf.content
-    elif pathname == '/Form-Submitted':
+    elif pathname == '/Form-Submitted' or pathname == '/Form-Submitted/':
         return fs.layout
+    elif pathname == '/admin' or pathname == '/admin/':
+        return admin.layout
+    elif pathname == '/admin/panel' or pathname == '/admin/panel/':
+        return admin.layout_panel_selection
+    elif pathname == '/admin/panel/Employee-Directory' or pathname == '/admin/panel/Employee-Directory/':
+        return admin.layout_panel_EDB
     else:
         return "404"
 
