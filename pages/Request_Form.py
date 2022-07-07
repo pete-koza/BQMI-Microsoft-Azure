@@ -374,14 +374,9 @@ content = html.Div(
                         html.Div(
                             id="Sub-Right-Form",
                             children=[
-                                html.P("75% M&IE Rate"),
-                                html.P("M&IE Rate"),
-                                html.P("Lodging Rate"),
-                                dcc.Input(
-                                    id="SevenFive-MIE-Rate",
-                                    type="number",
-                                    placeholder="$0.00"
-                                ),
+                                html.P("Daily M&IE Rate"),
+                                html.P("Daily Lodging Rate"),
+                                html.P("Daily 75% M&IE Rate"),
                                 dcc.Input(
                                     id="MIE-Rate",
                                     type="number",
@@ -392,11 +387,22 @@ content = html.Div(
                                     type="number",
                                     placeholder="$0.00"
                                 ),
-                                html.P("Estimated \nPer Diem"),
+                                dcc.Input(
+                                    id="SevenFive-MIE-Rate",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                
+                                html.P("Calculated Trip \nM&IE Total"),
+                                html.P("Calculated Trip \nLodging Total"),
                                 html.P("Estimated Lodging \nTaxes and Fees"),
-                                html.P("Roundtrip Auto \nMileage Cost"),
                                 dcc.Input(
                                     id="Est-Per-Diem",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                dcc.Input(
+                                    id="Est-Lodge",
                                     type="number",
                                     placeholder="$0.00"
                                 ),
@@ -405,16 +411,29 @@ content = html.Div(
                                     type="number",
                                     placeholder="$0.00"
                                 ),
+                                html.P("Roundtrip Auto \nMileage Cost"),
+                                html.P("Estimated Car \nRental Price"),
+                                html.P("Estimated Ground \nTransportation Fees"),
                                 dcc.Input(
                                     id="Round-Mileage-Cost",
                                     type="number",
                                     placeholder="$0.00"
                                 ),
-                                html.P("Estimated Ground \nTransportation Fees"),
-                                html.P("Estimated Airfare Price"),
-                                html.P("Baggage-Fees"),
+                                dcc.Input(
+                                    id="Est-Car-Rental-Price",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
                                 dcc.Input(
                                     id="Est-Ground-Trans-Fees",
+                                    type="number",
+                                    placeholder="$0.00"
+                                ),
+                                html.P("Estimated Fuel Cost"),
+                                html.P("Estimated Airfare Price"),
+                                html.P("Baggage Fees"),
+                                dcc.Input(
+                                    id="Est-Fuel-Cost",
                                     type="number",
                                     placeholder="$0.00"
                                 ),
@@ -427,26 +446,19 @@ content = html.Div(
                                     id="Baggage-Fees",
                                     type="number",
                                     placeholder="$0.00"
-                                ),
-                                html.P("Estimated Car \nRental Price"),
-                                html.P("Estimated Fuel Cost"),
-                                html.P("Other Cost"),
-                                dcc.Input(
-                                    id="Est-Car-Rental-Price",
-                                    type="number",
-                                    placeholder="$0.00"
-                                ),
-                                dcc.Input(
-                                    id="Est-Fuel-Cost",
-                                    type="number",
-                                    placeholder="$0.00"
-                                ),
+                                )
+                            ]
+                        ),
+                        html.Div(
+                            id="Other-Cost",
+                            children=[
+                                html.P("Other Costs"),
                                 dcc.Input(
                                     id="Other-Cost",
                                     type="number",
                                     placeholder="$0.00"
                                 )
-                            ]
+                            ],
                         ),
                         html.Br(),
                         html.Div(
