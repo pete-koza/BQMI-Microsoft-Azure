@@ -1,3 +1,4 @@
+from sqlite3 import Date
 import dash
 from dash import dcc, html, callback_context
 from dash.dependencies import Input, Output
@@ -7,6 +8,7 @@ import DB_SQL as db
 from app import app
 from pages import Form_Submitted as fs
 import time
+from datetime import datetime
 
 
 @app.callback( # Used for Enabling / Disabling the Submit Button
@@ -230,6 +232,19 @@ def pageChange(reset_button, submit_button):
     raise PreventUpdate
 
 
+@app.callback(
+    Output('totalTravelDays', 'children'),
+    Input('Travel-Start-Date', 'date'),
+    Input('Travel-End-Date', 'date')
+)
+def calcTravelDays(travelStart, travelEnd):
+    date_format = "%Y-%m-%d"
+    if(travelEnd == None or travelStart == None):
+        return f"Total Days of Travel: 0"
+    totalDays = datetime.strptime(travelEnd, date_format) - datetime.strptime(travelStart, date_format)
+    travelDays = totalDays.days + 1
+    return f"Total Days of Travel: {travelDays}"
+
 
 
 content = html.Div(
@@ -350,6 +365,8 @@ content = html.Div(
                 dcc.Link(
                     html.Button('Google Maps DUMMY', id='perDiemRate'), href='', target="_blank"
                 ),
+
+                html.H3(id="totalTravelDays"),
 
                 html.Div(
                     id="Right-Form-Block",
