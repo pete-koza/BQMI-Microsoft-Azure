@@ -344,8 +344,13 @@ content = html.Div(
                 html.H2("Itemized Travel Costs"),
 
                 dcc.Link(
-                    html.Button('Calculate Per Diem Rates', id='perDiemRate'), href='https://www.gsa.gov/travel/plan-book/per-diem-rates', target="_blank"
+                    html.Button('Search Per Diem Rates', id='perDiemRate'), href='https://www.gsa.gov/travel/plan-book/per-diem-rates', target="_blank"
                 ),
+
+                dcc.Link(
+                    html.Button('Google Maps DUMMY', id='perDiemRate'), href='', target="_blank"
+                ),
+
                 html.Div(
                     id="Right-Form-Block",
                     children=[

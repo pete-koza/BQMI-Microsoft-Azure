@@ -6,6 +6,11 @@ from datetime import date
 from dash.exceptions import PreventUpdate
 import DB_SQL as db
 
+import dash_auth
+
+from functions import email
+# auth = dash_auth.BasicAuth(app)
+
 
 @app.callback(
     Output('url', 'pathname'),
@@ -18,8 +23,8 @@ def adminLogin(adminLoginButton, username, password, manage_btn):
     if(adminLoginButton and username == 'admin' and password == 'password'):
          return "/admin/panel"
     if(manage_btn):
+        print('Check Email')
         return "/admin/panel/Employee-Directory"
-
     raise PreventUpdate
 
 

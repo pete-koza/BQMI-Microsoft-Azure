@@ -71,6 +71,7 @@ html {
 #Right-Form {
     padding: 12px 20px;
 }
+
 #Sub-Right-Form {
     background-color: black;
     text-align: center;
@@ -160,6 +161,7 @@ button {
     color: white;
     width: 100%; 
     text-align: center; 
+    border-collapse: collapse;
 }
 
 #fs_OutputTable Table{
@@ -167,17 +169,16 @@ button {
     font-family:Arial, Helvetica, sans-serif;
     color: white;
     table-layout: fixed;
-    width: 100%;
-    border-collapse: collapse;
 }
 
 #fs_OutputTable Thead {
-    width: 6.7%; 
+    width: 6.7%;
 }
 
 #fs_OutputTable Th {
     height: 100px;
     border-bottom: 1px solid #ccc;
+    width: 6.7%;
 }
 
 #fs_OutputTable Th:hover {
