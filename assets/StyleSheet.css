@@ -82,6 +82,11 @@ html {
     grid-gap: 5px;
 }
 
+#Right-Form-Top-Buttons {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
 #Right-Form-Block{
     background-color: black;
     text-align: left;

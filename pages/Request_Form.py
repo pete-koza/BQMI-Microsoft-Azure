@@ -7,6 +7,7 @@ from dash.exceptions import PreventUpdate
 import DB_SQL as db
 from app import app
 from pages import Form_Submitted as fs
+from functions import email
 import time
 from datetime import datetime
 
@@ -213,9 +214,9 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
 
 
         # Spacer
-        print("SQL Submit")
         fs.populateForm(employeeName=employeeName, employeeEmail=employeeEmail, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
         db.submit_New_Request(employeeName=employeeName, employeeEmail=employeeEmail, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
+        email.sendRequestApprovalCS(employeeName=employeeName, employeeEmail=employeeEmail, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
         # # Spacer
         
     else:
@@ -251,7 +252,18 @@ def calcTravelDays(travelStart, travelEnd):
     travelDays = totalDays.days + 1
     return f"Total Days of Travel: {travelDays}"
 
-
+@app.callback(
+    Output('googleMapsLink', 'children'),
+    Input('Travel-City', 'value'),
+    Input('Travel-State', 'value')
+)
+def updateGoogleMapsLink(travelCity, travelState):
+    if(travelCity == None or travelState == None):
+        return dcc.Link(html.Button('Google Maps', id='googleMapsBTN'), href='https://www.google.com/maps/', target='_blank')
+    else:
+        travelCity = travelCity.replace(" ", "+")
+        travelState = travelState.replace(" ", "+")
+        return dcc.Link(html.Button('Google Maps', id='googleMapsBTN'), href=f'https://www.google.com/maps/place/{travelCity},+{travelState}', target='_blank')
 
 content = html.Div(
     id="Full-Form",
@@ -363,17 +375,20 @@ content = html.Div(
                     placeholder="$0.00"
                 ),
                 html.H2("Itemized Travel Costs"),
+                html.Div(
+                    id="Right-Form-Top-Buttons",
+                    children= [
+                        dcc.Link(
+                            html.Button('Search Per Diem Rates', id='perDiemRate'), href='https://www.gsa.gov/travel/plan-book/per-diem-rates', target="_blank"
+                        ),
 
-                dcc.Link(
-                    html.Button('Search Per Diem Rates', id='perDiemRate'), href='https://www.gsa.gov/travel/plan-book/per-diem-rates', target="_blank"
+                        html.Div(
+                            id="googleMapsLink"
+                        ),
+
+                        html.H3(id="totalTravelDays")
+                    ]
                 ),
-
-                dcc.Link(
-                    html.Button('Google Maps DUMMY', id='perDiemRate'), href='', target="_blank"
-                ),
-
-                html.H3(id="totalTravelDays"),
-
                 html.Div(
                     id="Right-Form-Block",
                     children=[
