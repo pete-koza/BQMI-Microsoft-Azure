@@ -43,6 +43,7 @@ def unlock_Submit_Button(employeeName, employerName, workOrderLeadList, companyS
     Input('SevenFive-MIE-Rate', 'value'),
     Input('MIE-Rate', 'value'),
     Input('Lodging-Rate', 'value'),
+    Input('Est-Lodge', 'value'),
     Input('Est-Per-Diem', 'value'),
     Input('Est-Lodge-Tax-Fees', 'value'),
     Input('Round-Mileage-Cost', 'value'),
@@ -53,7 +54,7 @@ def unlock_Submit_Button(employeeName, employerName, workOrderLeadList, companyS
     Input('Est-Fuel-Cost', 'value'),
     Input('Other-Cost', 'value')
 )
-def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost):
+def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estLodge, estPerDiem, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost): 
     if(trainingCost == None):
         trainingCost = 0.00
     if(MIE75 == None):
@@ -62,6 +63,8 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodge
         MIE = 0.00
     if(lodgingRate == None):
         lodgingRate = 0.00
+    if(estLodge == None): 
+        estLodge = 0.00 
     if(estPerDiem == None):
         estPerDiem = 0.00
     if(estLodgeTaxFees == None):
@@ -81,7 +84,7 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodge
     if(otherCost == None):
         otherCost = 0.00
 
-    travelCosts = float(MIE75 + MIE + lodgingRate + estPerDiem + estLodgeTaxFees + roundMileageCost + estGroundTransFees + estAirfarePrice + baggageFees + estCarRentalPrice + estFuelCost + otherCost)
+    travelCosts = float(MIE75 + MIE + lodgingRate + estPerDiem + estLodge + estLodgeTaxFees + roundMileageCost + estGroundTransFees + estAirfarePrice + baggageFees + estCarRentalPrice + estFuelCost + otherCost) 
 
     totalCosts = round(travelCosts + trainingCost, 2)
     
@@ -113,6 +116,7 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodge
     Input('MIE-Rate', 'value'),
     Input('Lodging-Rate', 'value'),
     Input('Est-Per-Diem', 'value'),
+    Input('Est-Lodge', 'value'),############
     Input('Est-Lodge-Tax-Fees', 'value'),
     Input('Round-Mileage-Cost', 'value'),
     Input('Est-Ground-Trans-Fees', 'value'),
@@ -122,7 +126,7 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodge
     Input('Est-Fuel-Cost', 'value'),
     Input('Other-Cost', 'value')
 )
-def submit_Request_onClick(button_click, employeeName, employerName, workOrderLead, companySupervisor, workOrderManager, purposeForRequest, trainingTitle, trainingStartDate, trainingEndDate, certification, travelCity, travelState, travelStartDate, travelEndDate, trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost):
+def submit_Request_onClick(button_click, employeeName, employerName, workOrderLead, companySupervisor, workOrderManager, purposeForRequest, trainingTitle, trainingStartDate, trainingEndDate, certification, travelCity, travelState, travelStartDate, travelEndDate, trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodge, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost): ###########
     changed_id = [p['prop_id'] for p in callback_context.triggered][0]
     if 'submit-btn' in changed_id:
         # Spacer
@@ -136,6 +140,8 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
             lodgingRate = 0.00
         if(estPerDiem == None):
             estPerDiem = 0.00
+        if(estLodge == None): ###########
+            estLodge = 0.00 ###########
         if(estLodgeTaxFees == None):
             estLodgeTaxFees = 0.00
         if(roundMileageCost == None):
@@ -166,7 +172,7 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
 
         
         # Spacer
-        travelCosts = float(MIE75 + MIE + lodgingRate + estPerDiem + estLodgeTaxFees + roundMileageCost + estGroundTransFees + estAirfarePrice + baggageFees + estCarRentalPrice + estFuelCost + otherCost)
+        travelCosts = float(MIE75 + MIE + lodgingRate + estPerDiem + estLodge + estLodgeTaxFees + roundMileageCost + estGroundTransFees + estAirfarePrice + baggageFees + estCarRentalPrice + estFuelCost + otherCost) #################
         # Spacer
         totalCosts = round(travelCosts + trainingCost, 2)
         travelLocation = '' + travelCity + ', ' + travelState
