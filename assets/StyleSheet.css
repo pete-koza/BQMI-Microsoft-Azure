@@ -80,7 +80,6 @@ html {
     grid-template-columns: auto auto auto;
     grid-template-rows: auto auto auto auto;
     grid-gap: 5px;
-    border-bottom: 2px solid #ccc;
 }
 
 #Right-Form-Block{
@@ -95,7 +94,7 @@ html {
     box-sizing: border-box;
 }
 
-    #SevenFive-MIE-Rate, #MIE-Rate, #Lodging-Rate, #Est-Per-Diem, #Est-Lodge-Tax-Fees, #Round-Mileage-Cost, #Est-Ground-Trans-Fees, #Est-Airfare-Price, #Baggage-Fees, #Est-Car-Rental-Price, #Est-Fuel-Cost, #Other-Cost   {
+    #SevenFive-MIE-Rate, #MIE-Rate, #Lodging-Rate, #Est-Per-Diem, #Est-Lodge, #Est-Lodge-Tax-Fees, #Round-Mileage-Cost, #Est-Ground-Trans-Fees, #Est-Airfare-Price, #Baggage-Fees, #Est-Car-Rental-Price, #Est-Fuel-Cost {
         width: 100%;
         padding: 12px 20px;
         margin: 8px 0;
@@ -103,6 +102,15 @@ html {
         border: 1px solid #ccc;
         border-radius: 4px;
         box-sizing: border-box;    
+    }
+
+    #Other-Cost {
+        width: 100%;
+        padding: 12px 20px;
+        display: inline-block;
+        box-sizing: border-box;
+        border-radius: 4px;
+        border-bottom: 2px solid #ccc;
     }
 
 #Travel-Total-out, #Total-Cost-out {
