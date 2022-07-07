@@ -83,6 +83,11 @@ html {
     border-bottom: 2px solid #ccc;
 }
 
+#Right-Form-Top-Buttons {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
 #Right-Form-Block{
     background-color: black;
     text-align: left;
