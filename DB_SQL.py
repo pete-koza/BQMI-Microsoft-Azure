@@ -3,7 +3,7 @@ import pyodbc as pyo
 
 # conn = pyo.connect('Database/TravelTraining.db')
 try:
-    connString = "Driver={ODBC Driver 17 for SQL Server};Server=tcp:pip-it-sharepoint-prod-eastus.database.windows.net,1433;Database=Travel Training;Uid=pkoza;Pwd=xAgLBmu#7bSeeYt;"
+    # connString = "Driver={ODBC Driver 17 for SQL Server};Server=tcp:pip-it-sharepoint-prod-eastus.database.windows.net,1433;Database=Travel Training;Uid=pkoza;Pwd=xAgLBmu#7bSeeYt;"
     conn = pyo.connect(connString)
     cursor = conn.cursor()
 
@@ -28,7 +28,7 @@ try:
     cursor.close()
     conn.close()
 except:
-    employeeList = ["**Working in offline mode. Database not loaded**", "**Test Email**, jpbuddy00@aol.com", "Jake Parrish, jparrish@bqmi.com", "Pete Koza, pkoza@bqmi.com"]
+    employeeList = ["**Working in offline mode. Database not loaded**", "**Test Email**, pkoza@bqmi.com", "Jake Parrish, jparrish@bqmi.com", "Joe Homan, jhoman@bqmi.com", "Ty Kujawa, tkujawa@bqmi.com", "Joe Banks,, jbanks@bqmi.com"]
     employerList = ["Aerodyne", "BQMI", "COMSAT", "DB Consulting", "Insight Global", "Peerless", "V2 Technologies"]
     employerList.sort()
     projectCodes = ["01.01.01 - Test Code", "01.02.03 - Test Code 2"]
