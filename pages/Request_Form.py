@@ -471,7 +471,7 @@ content = html.Div(
                             ]
                         ),
                         html.Div(
-                            id="Other-Cost",
+                            id="Other",
                             children=[
                                 html.P("Other Costs"),
                                 dcc.Input(
