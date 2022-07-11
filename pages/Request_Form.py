@@ -258,13 +258,15 @@ def calcTripLodging(lodgingRate, travelStart, travelEnd):
     date_format = "%Y-%m-%d"
     if(travelEnd == None or travelStart == None):
         travelDays = 0
-    else:
+    try:
         totalDays = datetime.strptime(travelEnd, date_format) - datetime.strptime(travelStart, date_format)
         travelDays = totalDays.days
-    if (lodgingRate == None):
-        lodgingRate = 0
-    calcLodge = (lodgingRate * travelDays)
-    return (calcLodge), (calcLodge * .08) 
+        if (lodgingRate == None):
+            lodgingRate = 0
+        calcLodge = (lodgingRate * travelDays)
+        return (calcLodge), (calcLodge * .08)
+    except:
+        raise PreventUpdate
 
 
 
