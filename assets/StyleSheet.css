@@ -106,6 +106,10 @@ html {
     box-sizing: border-box;
 }
 
+    #SevenFive-MIE-Rate:disabled, #Calc-MIE:disabled, #Calc-Lodge:disabled, #Est-Lodge-Tax-Fees:disabled{
+        background-color: white;    
+    }
+
     #SevenFive-MIE-Rate, #MIE-Rate, #Lodging-Rate, #Calc-MIE, #Calc-Lodge, #Est-Lodge-Tax-Fees, #Round-Mileage-Cost, #Est-Ground-Trans-Fees, #Est-Airfare-Price, #Baggage-Fees, #Est-Car-Rental-Price, #Est-Fuel-Cost {
         width: 100%;
         padding: 12px 20px;

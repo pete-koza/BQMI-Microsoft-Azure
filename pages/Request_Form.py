@@ -456,7 +456,8 @@ content = html.Div(
                                 dcc.Input(
                                     id="SevenFive-MIE-Rate",
                                     type="number",
-                                    placeholder="$0.00"
+                                    placeholder="$0.00",
+                                    disabled=True
                                 ),
                                 
                                 html.P("Calculated Trip \nM&IE Total"),
@@ -465,17 +466,20 @@ content = html.Div(
                                 dcc.Input(
                                     id="Calc-MIE",
                                     type="number",
-                                    placeholder="$0.00"
+                                    placeholder="$0.00",
+                                    disabled=True
                                 ),
                                 dcc.Input(
                                     id="Calc-Lodge",
                                     type="number",
-                                    placeholder="$0.00"
+                                    placeholder="$0.00",
+                                    disabled=True
                                 ),
                                 dcc.Input(
                                     id="Est-Lodge-Tax-Fees",
                                     type="number",
-                                    placeholder="$0.00"
+                                    placeholder="$0.00",
+                                    disabled=True
                                 ),
                                 html.P("Roundtrip Auto \nMileage Cost"),
                                 html.P("Estimated Car \nRental Price"),
