@@ -30,8 +30,7 @@ html {
             border-color: black;
         }
 
-        #SevenFive-MIE-Rate:hover, #MIE-Rate:hover, #Lodging-Rate:hover, #Calc-MIE:hover, #Calc-Lodge:hover, #Est-Lodge-Tax-Fees:hover, 
-        #Round-Mileage-Cost:hover, #Est-Ground-Trans-Fees:hover, #Est-Airfare-Price:hover, #Baggage-Fees:hover, #Est-Car-Rental-Price:hover, #Est-Fuel-Cost:hover, #Other-Cost:hover {
+        #MIE-Rate:hover, #Lodging-Rate:hover, #Round-Mileage-Cost:hover, #Est-Ground-Trans-Fees:hover, #Est-Airfare-Price:hover, #Baggage-Fees:hover, #Est-Car-Rental-Price:hover, #Est-Fuel-Cost:hover, #Other-Cost:hover {
             box-shadow: 0 12px 16px 0 rgba(255, 255, 255, 0.24), 0 17px 50px 0 rgba(255, 255, 255, 0.19);
             border-color: white;
         }
