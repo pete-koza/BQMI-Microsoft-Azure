@@ -99,7 +99,7 @@ html {
     box-sizing: border-box;
 }
 
-    #SevenFive-MIE-Rate, #MIE-Rate, #Lodging-Rate, #Est-Per-Diem, #Est-Lodge, #Est-Lodge-Tax-Fees, #Round-Mileage-Cost, #Est-Ground-Trans-Fees, #Est-Airfare-Price, #Baggage-Fees, #Est-Car-Rental-Price, #Est-Fuel-Cost {
+    #SevenFive-MIE-Rate, #MIE-Rate, #Lodging-Rate, #Calc-MIE, #Calc-Lodge, #Est-Lodge-Tax-Fees, #Round-Mileage-Cost, #Est-Ground-Trans-Fees, #Est-Airfare-Price, #Baggage-Fees, #Est-Car-Rental-Price, #Est-Fuel-Cost {
         width: 100%;
         padding: 12px 20px;
         margin: 8px 0;

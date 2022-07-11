@@ -41,11 +41,8 @@ def unlock_Submit_Button(employeeName, employerName, workOrderLeadList, companyS
     Output('Travel-Total-out', 'children'),
     Output('Total-Cost-out', 'children'),
     Input('Training-Cost', 'value'),
-    Input('SevenFive-MIE-Rate', 'value'),
-    Input('MIE-Rate', 'value'),
-    Input('Lodging-Rate', 'value'),
-    Input('Est-Lodge', 'value'),
-    Input('Est-Per-Diem', 'value'),
+    Input('Calc-Lodge', 'value'),
+    Input('Calc-MIE', 'value'),
     Input('Est-Lodge-Tax-Fees', 'value'),
     Input('Round-Mileage-Cost', 'value'),
     Input('Est-Ground-Trans-Fees', 'value'),
@@ -55,19 +52,13 @@ def unlock_Submit_Button(employeeName, employerName, workOrderLeadList, companyS
     Input('Est-Fuel-Cost', 'value'),
     Input('Other-Cost', 'value')
 )
-def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estLodge, estPerDiem, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost): 
+def update_cost_calc(trainingCost, estLodge, calcMIE, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost): 
     if(trainingCost == None):
         trainingCost = 0.00
-    if(MIE75 == None):
-        MIE75 = 0.00
-    if(MIE == None):
-        MIE = 0.00
-    if(lodgingRate == None):
-        lodgingRate = 0.00
     if(estLodge == None): 
         estLodge = 0.00 
-    if(estPerDiem == None):
-        estPerDiem = 0.00
+    if(calcMIE == None):
+        calcMIE = 0.00
     if(estLodgeTaxFees == None):
         estLodgeTaxFees = 0.00
     if(roundMileageCost == None):
@@ -85,7 +76,7 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estLodge, estPerDiem
     if(otherCost == None):
         otherCost = 0.00
 
-    travelCosts = float(MIE75 + MIE + lodgingRate + estPerDiem + estLodge + estLodgeTaxFees + roundMileageCost + estGroundTransFees + estAirfarePrice + baggageFees + estCarRentalPrice + estFuelCost + otherCost) 
+    travelCosts = float(calcMIE + estLodge + estLodgeTaxFees + roundMileageCost + estGroundTransFees + estAirfarePrice + baggageFees + estCarRentalPrice + estFuelCost + otherCost) 
 
     totalCosts = round(travelCosts + trainingCost, 2)
     
@@ -116,8 +107,8 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estLodge, estPerDiem
     Input('SevenFive-MIE-Rate', 'value'),
     Input('MIE-Rate', 'value'),
     Input('Lodging-Rate', 'value'),
-    Input('Est-Per-Diem', 'value'),
-    Input('Est-Lodge', 'value'),############
+    Input('Calc-MIE', 'value'),
+    Input('Calc-Lodge', 'value'),############
     Input('Est-Lodge-Tax-Fees', 'value'),
     Input('Round-Mileage-Cost', 'value'),
     Input('Est-Ground-Trans-Fees', 'value'),
@@ -127,7 +118,7 @@ def update_cost_calc(trainingCost, MIE75, MIE, lodgingRate, estLodge, estPerDiem
     Input('Est-Fuel-Cost', 'value'),
     Input('Other-Cost', 'value')
 )
-def submit_Request_onClick(button_click, employeeName, employerName, workOrderLead, companySupervisor, workOrderManager, purposeForRequest, trainingTitle, trainingStartDate, trainingEndDate, certification, travelCity, travelState, travelStartDate, travelEndDate, trainingCost, MIE75, MIE, lodgingRate, estPerDiem, estLodge, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost): ###########
+def submit_Request_onClick(button_click, employeeName, employerName, workOrderLead, companySupervisor, workOrderManager, purposeForRequest, trainingTitle, trainingStartDate, trainingEndDate, certification, travelCity, travelState, travelStartDate, travelEndDate, trainingCost, MIE75, MIE, lodgingRate, calcMIE, estLodge, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost): ###########
     changed_id = [p['prop_id'] for p in callback_context.triggered][0]
     if 'submit-btn' in changed_id:
         # Spacer
@@ -139,8 +130,8 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
             MIE = 0.00
         if(lodgingRate == None):
             lodgingRate = 0.00
-        if(estPerDiem == None):
-            estPerDiem = 0.00
+        if(calcMIE == None):
+            calcMIE = 0.00
         if(estLodge == None): ###########
             estLodge = 0.00 ###########
         if(estLodgeTaxFees == None):
@@ -173,7 +164,7 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
 
         
         # Spacer
-        travelCosts = float(MIE75 + MIE + lodgingRate + estPerDiem + estLodge + estLodgeTaxFees + roundMileageCost + estGroundTransFees + estAirfarePrice + baggageFees + estCarRentalPrice + estFuelCost + otherCost) #################
+        travelCosts = float(calcMIE + estLodge + estLodgeTaxFees + roundMileageCost + estGroundTransFees + estAirfarePrice + baggageFees + estCarRentalPrice + estFuelCost + otherCost) #################
         # Spacer
         totalCosts = round(travelCosts + trainingCost, 2)
         travelLocation = '' + travelCity + ', ' + travelState
@@ -221,6 +212,57 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
         
     else:
         raise PreventUpdate
+
+
+@app.callback(
+    Output('SevenFive-MIE-Rate', 'value'),
+    Input('MIE-Rate', 'value')
+)
+def calcDailySevenFive(MIE):
+    if (MIE == None):
+        return None
+    else:
+        MIE75 = MIE*.75
+        return (MIE75)
+
+@app.callback(
+    Output('Calc-MIE', 'value'),
+    Input('MIE-Rate', 'value'),
+    Input('Travel-Start-Date', 'date'),
+    Input('Travel-End-Date', 'date')
+)
+def calcTripMIE(MIE, travelStart, travelEnd):
+    date_format = "%Y-%m-%d"
+    if(travelEnd == None or travelStart == None):
+        travelDays = 0
+    else:
+        totalDays = datetime.strptime(travelEnd, date_format) - datetime.strptime(travelStart, date_format)
+        travelDays = totalDays.days + 1
+    if (MIE == None):
+        MIE = 0
+    MIE75 = MIE*.75
+    return ((MIE75 * 2) + ((travelDays - 2)*MIE))
+
+
+@app.callback(
+    Output('Calc-Lodge', 'value'),
+    Output('Est-Lodge-Tax-Fees', 'value'),
+    Input('Lodging-Rate', 'value'),
+    Input('Travel-Start-Date', 'date'),
+    Input('Travel-End-Date', 'date')
+)
+def calcTripLodging(lodgingRate, travelStart, travelEnd):
+    date_format = "%Y-%m-%d"
+    if(travelEnd == None or travelStart == None):
+        travelDays = 0
+    else:
+        totalDays = datetime.strptime(travelEnd, date_format) - datetime.strptime(travelStart, date_format)
+        travelDays = totalDays.days
+    if (lodgingRate == None):
+        lodgingRate = 0
+    calcLodge = (lodgingRate * travelDays)
+    return (calcLodge), (calcLodge * .08) 
+
 
 
 @app.callback(
@@ -418,12 +460,12 @@ content = html.Div(
                                 html.P("Calculated Trip \nLodging Total"),
                                 html.P("Estimated Lodging \nTaxes and Fees"),
                                 dcc.Input(
-                                    id="Est-Per-Diem",
+                                    id="Calc-MIE",
                                     type="number",
                                     placeholder="$0.00"
                                 ),
                                 dcc.Input(
-                                    id="Est-Lodge",
+                                    id="Calc-Lodge",
                                     type="number",
                                     placeholder="$0.00"
                                 ),

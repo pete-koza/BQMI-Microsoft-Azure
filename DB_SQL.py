@@ -1,4 +1,3 @@
-import sqlite3 as sql
 import pyodbc as pyo
 
 # conn = pyo.connect('Database/TravelTraining.db')
@@ -27,7 +26,8 @@ try:
 
     cursor.close()
     conn.close()
-except:
+except Exception as ex:
+    print(ex)
     employeeList = ["**Working in offline mode. Database not loaded**", "**Test Email**, jpbuddy00@aol.com", "Jake Parrish, jparrish@bqmi.com", "Pete Koza, pkoza@bqmi.com"]
     employerList = ["Aerodyne", "BQMI", "COMSAT", "DB Consulting", "Insight Global", "Peerless", "V2 Technologies"]
     employerList.sort()
@@ -50,7 +50,6 @@ def submit_New_Request(employeeName, employeeEmail, employerName, trainingTitle,
 
 def loadReqs():
     try:
-        conn = sql.connect('Database/TravelTraining.db')
         cursor = conn.cursor()
         cursor.execute("SELECT RequestID, Employee FROM 'In Progress Requests'")
 
