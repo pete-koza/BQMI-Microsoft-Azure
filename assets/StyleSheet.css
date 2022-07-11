@@ -3,7 +3,6 @@
     display: grid;
     grid-template-columns: 40% 45%;
     grid-gap: 15%;
-    background-color: #707070;
     font-family: Arial, Helvetica, sans-serif;
     margin: 8px 0;
 }
@@ -24,7 +23,18 @@ html {
             color: black;
             margin: 8px 0;
         }
-        
+
+        #Employee-Name:hover, #Employer-Name:hover, #Work-Order-Lead-List:hover, #Company-Supervisor-List:hover, #Work-Order-Manager-List:hover, #Project-Code:hover,  #Purpose-For-Request:hover, #Training-Title:hover, #Travel-City:hover, #Travel-State:hover, 
+        #Training-Start-Date:hover, #Training-End-Date:hover, #Travel-Start-Date:hover, #Travel-End-Date:hover, #Training-Cost:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+            border-color: black;
+        }
+
+        #SevenFive-MIE-Rate:hover, #MIE-Rate:hover, #Lodging-Rate:hover, #Est-Per-Diem:hover, #Est-Lodge:hover, #Est-Lodge-Tax-Fees:hover, 
+        #Round-Mileage-Cost:hover, #Est-Ground-Trans-Fees:hover, #Est-Airfare-Price:hover, #Baggage-Fees:hover, #Est-Car-Rental-Price:hover, #Est-Fuel-Cost:hover, #Other-Cost:hover {
+            box-shadow: 0 12px 16px 0 rgba(255, 255, 255, 0.24), 0 17px 50px 0 rgba(255, 255, 255, 0.19);
+            border-color: white;
+        }
         #Purpose-For-Request, #Training-Title  {
             width: 100%;
             padding: 10px;
@@ -51,10 +61,7 @@ html {
         }
 
         #Training-Start-Date, #Training-End-Date, #Travel-Start-Date, #Travel-End-Date {
-            padding: 12px 20px;
-            display: inline-block;
-            border-radius: 4px;
-            box-sizing: border-box;
+            margin: 8px 0;
         }
         
 
@@ -73,7 +80,6 @@ html {
 }
 
 #Sub-Right-Form {
-    background-color: black;
     text-align: center;
     color: white;
     display: grid;
@@ -85,6 +91,7 @@ html {
 #Right-Form-Top-Buttons {
     display: grid;
     grid-template-columns: auto auto auto;
+    grid-gap: 5px;
 }
 
 #Right-Form-Block{
@@ -112,20 +119,28 @@ html {
     #Other-Cost {
         width: 100%;
         padding: 12px 20px;
-        display: inline-block;
         box-sizing: border-box;
-        border-radius: 4px;
         border-bottom: 2px solid #ccc;
     }
 
 #Travel-Total-out, #Total-Cost-out {
-    background-color: black;
-    color: white;
     text-align: left;
 }
 
-button {
-    transition-duration: 0.4s;
+#perDiemRate, #googleMapsBTN {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+}
+
+#perDiemRate:hover, #googleMapsBTN:hover {
+    background-color: lightgray;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    border-color: black;
 }
 
 #submit-btn {
