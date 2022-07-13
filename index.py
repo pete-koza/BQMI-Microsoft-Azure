@@ -21,10 +21,6 @@ def display_page(pathname):
         return fs.layout
     elif pathname == '/admin' or pathname == '/admin/':
         return admin.layout
-    elif pathname == '/admin/panel' or pathname == '/admin/panel/':
-        return admin.layout_panel_selection
-    elif pathname == '/admin/panel/Employee-Directory' or pathname == '/admin/panel/Employee-Directory/':
-        return admin.layout_panel_EDB
     else:
         return "404"
 

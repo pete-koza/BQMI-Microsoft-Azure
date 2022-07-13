@@ -38,6 +38,7 @@ def populateForm(employeeName, employeeEmail, employerName, trainingTitle, train
         rf_passedData.append(workOrderLead)
         rf_passedData.append(companySupervisor)
         rf_passedData.append(workOrderManager)
+        print(rf_passedData)
     else:
         rf_passedData.append(employeeName)
         rf_passedData.append(employeeEmail)
@@ -54,6 +55,7 @@ def populateForm(employeeName, employeeEmail, employerName, trainingTitle, train
         rf_passedData.append(workOrderLead)
         rf_passedData.append(companySupervisor)
         rf_passedData.append(workOrderManager)
+        print(rf_passedData)
 
 
 @app.callback(Output('form-Callback-Info', 'children'),

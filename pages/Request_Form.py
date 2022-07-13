@@ -90,6 +90,7 @@ def update_cost_calc(trainingCost, estLodge, calcMIE, estLodgeTaxFees, roundMile
     Input('submit-btn', 'n_clicks'),
     Input('Employee-Name', 'value'),
     Input('Employer-Name', 'value'),
+    Input('Project-Code', 'value'),
     Input('Work-Order-Lead-List', 'value'),
     Input('Company-Supervisor-List', 'value'),
     Input('Work-Order-Manager-List', 'value'),
@@ -117,7 +118,7 @@ def update_cost_calc(trainingCost, estLodge, calcMIE, estLodgeTaxFees, roundMile
     Input('Est-Fuel-Cost', 'value'),
     Input('Other-Cost', 'value')
 )
-def submit_Request_onClick(button_click, employeeName, employerName, workOrderLead, companySupervisor, workOrderManager, purposeForRequest, trainingTitle, trainingStartDate, trainingEndDate, certification, travelCity, travelState, travelStartDate, travelEndDate, trainingCost, MIE75, MIE, lodgingRate, calcMIE, estLodge, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost): ###########
+def submit_Request_onClick(button_click, employeeName, employerName, projectCode, workOrderLead, companySupervisor, workOrderManager, purposeForRequest, trainingTitle, trainingStartDate, trainingEndDate, certification, travelCity, travelState, travelStartDate, travelEndDate, trainingCost, MIE75, MIE, lodgingRate, calcMIE, estLodge, estLodgeTaxFees, roundMileageCost, estGroundTransFees, estAirfarePrice, baggageFees, estCarRentalPrice, estFuelCost, otherCost): ###########
     changed_id = [p['prop_id'] for p in callback_context.triggered][0]
     if 'submit-btn' in changed_id:
         # Spacer
@@ -135,6 +136,8 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
             estLodge = 0.00 ###########
         if(estLodgeTaxFees == None):
             estLodgeTaxFees = 0.00
+        if(projectCode == None):
+            projectCode = 'N/A'
         if(roundMileageCost == None):
             roundMileageCost = 0.00
         if(estGroundTransFees == None):
@@ -204,8 +207,9 @@ def submit_Request_onClick(button_click, employeeName, employerName, workOrderLe
 
 
         # Spacer
-        fs.populateForm(employeeName=employeeName, employeeEmail=employeeEmail, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
-        db.submit_New_Request(employeeName=employeeName, employeeEmail=employeeEmail, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
+        fs.populateForm(employeeName=employeeName, employeeEmail=employeeEmail, employerName=employerName, trainingTitle=trainingTitle,trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager)
+        time.sleep(1)
+        db.submit_New_Request(employeeName=employeeName, employeeEmail=employeeEmail, employerName=employerName, projectCode=projectCode,trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager, trainingCost=trainingCost, tripMIE=calcMIE, tripLodging=estLodge, lodgingTF=estLodgeTaxFees, autoMileage=roundMileageCost, carRental=estCarRentalPrice, groundTrans=estGroundTransFees, estFuel=estFuelCost, estAirfair=estAirfarePrice, baggage=baggageFees, other=otherCost)
         email.sendRequestApprovalCS(employeeName=employeeName, employeeEmail=employeeEmail, employerName=employerName, trainingTitle=trainingTitle, trainingPurpose=purposeForRequest, certification=certification, travelStartDate=travelStartDate, travelEndDate=travelEndDate, destination=travelLocation, trainingStartDate=trainingStartDate, trainingEndDate=trainingEndDate, totalCost=totalCosts, workOrderLead=workOrderLead, companySupervisor=companySupervisor, workOrderManager=workOrderManager, trainingCost=trainingCost)
         # # Spacer
         
@@ -349,7 +353,7 @@ content = html.Div(
                         ),
                         dcc.Dropdown(
                             id="Project-Code",
-                            options= [],
+                            options= db.projectCodes,
                             placeholder="Project Work Code"
                         ),
                         dcc.Textarea(
